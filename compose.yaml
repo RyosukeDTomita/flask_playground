@@ -1,0 +1,8 @@
+services:
+  sigma_app: # fixme
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sigma_app_image:latest # fixme
+    container_name: sigma_app_container # fixme
+
