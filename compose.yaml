@@ -1,8 +1,20 @@
 services:
-  sigma_app: # fixme
+  flask_app:
     build:
       context: .
       dockerfile: Dockerfile
-    image: sigma_app_image:latest # fixme
-    container_name: sigma_app_container # fixme
+    image: flask_image:latest
+    container_name: flask_app_container
+    ports:
+      - "8000:8000"
 
+  mysql_svr:
+    image: mysql:latest
+    container_name: mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"

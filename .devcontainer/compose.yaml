@@ -1,11 +1,23 @@
 # Dev Containerではこちらが優先される。
 services:
-  sigma_app: # fixme
+  flask_app:
     build:
       target: devcontainer
       context: .
       dockerfile: Dockerfile
-    image: python-devcontainer:latest
-    container_name: python-devcontainer-container
+    image: flask-devcontainer:latest
+    container_name: flask-devcontainer-container
     volumes:
-      - ./:/app # contextから見たパスではなく，リポジトリから見たパスがvolume mountされる。
+      - ./:/flask # contextから見たパスではなく，リポジトリから見たパスがvolume mountされる。
+      # NOTE: ./install-pkg.shでインストールしたパッケージをキャッシュするためのディレクトリ
+      - ./.devcontainer/cache:/cache
+  mysql_svr:
+    image: mysql:latest
+    container_name: mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
